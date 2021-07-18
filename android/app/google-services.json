@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "42266687310",
+    "project_id": "ipos-in",
+    "storage_bucket": "ipos-in.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42266687310:android:2c696fd215c931c359d01f",
+        "android_client_info": {
+          "package_name": "com.kedhar.ipo_market"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42266687310-imub799v42k0d2l9nrrb2g35mr0lt24o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFGSoDW-gJz32hrd-VH-CxJBUsHOOf2Qs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42266687310-imub799v42k0d2l9nrrb2g35mr0lt24o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
