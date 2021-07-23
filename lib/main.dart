@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:ipos/data/themeChanger.dart';
+import 'package:ipos/screens/homeScreen.dart';
 import 'package:ipos/test/boardApp.dart';
 
 void main() {
@@ -53,23 +55,30 @@ class _MyHomePageState extends State<MyHomePage> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      // Initialize FlutterFire:
-      future: _initialization,
-      builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          return Text("Somthing went wrong");
-        }
+    return ThemeChanger(builder: (context, _brightness) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'IPO Cart',
+        theme: ThemeData(
+          brightness: _brightness,
+          primarySwatch: Colors.green,
+        ),
+        home: FutureBuilder(
+          future: _initialization,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text("Somthing went wrong");
+            }
 
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return BoardApp();
-        }
-        print(snapshot.connectionState);
-        // Otherwise, show something whilst waiting for initialization to complete
-        return CircularProgressIndicator();
-      },
-    );
+            if (snapshot.connectionState == ConnectionState.done) {
+              return HomeScreen();
+            }
+            print(snapshot.connectionState);
+
+            return CircularProgressIndicator();
+          },
+        ),
+      );
+    });
   }
 }

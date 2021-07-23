@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ipos/data/themeChanger.dart';
+import 'package:ipos/test/detailsPage.dart';
 
-import 'getData.dart';
+import '../getData.dart';
 
 class BoardApp extends StatefulWidget {
   const BoardApp({Key? key}) : super(key: key);
@@ -33,36 +35,29 @@ class _BoardAppState extends State<BoardApp> {
                           itemCount: cats.listt.length,
                           itemBuilder: (context, index) {
                             return Container(
+                                child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailsPage(index)),
+                                );
+                              },
+                              child: Card(
                                 child: Column(
-                              children: [
-                                TextButton(
-                                    onPressed: () {
-                                      cats.funnn();
-                                    },
-                                    child: Text("child")),
-                                Text(cats.returningTitle(index))
-                              ],
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {
+                                          ThemeChanger.of(context)!
+                                              .changeTheme();
+                                        },
+                                        child: Text("child")),
+                                  ],
+                                ),
+                              ),
                             ));
-                          })); // snapshot.data  :- get your object which is pass from your downloadData() function
+                          }));
               }
             }));
-  }
-
-  FirebaseFirestore? _instance;
-  var listt;
-  // List<Category> _categories = [];
-  Future<String>? getCatFromFireStore() async {
-    _instance = FirebaseFirestore.instance;
-    CollectionReference categories = _instance!.collection("ipos");
-    DocumentSnapshot snapshot = await categories.doc("current-ipos").get();
-    var data = snapshot.data() as Map;
-    listt = data.values.toList();
-    // var categoriesdata = data['zomato'] as List<dynamic>;
-    print(listt[0]);
-    print(listt.length);
-    for (var i = 0; i < listt.length; i++) {
-      print(listt[i]['name']);
-    }
-    return listt;
   }
 }

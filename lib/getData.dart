@@ -3,10 +3,6 @@ import 'package:flutter/foundation.dart';
 
 class CategoryServices {
   FirebaseFirestore? _instance;
-  List<Category> _categories = [];
-  List<Category> getCategories() {
-    return _categories;
-  }
 
   var listt;
   Future getCatFromFireStore() async {
@@ -15,11 +11,11 @@ class CategoryServices {
     DocumentSnapshot snapshot = await categories.doc("current-ipos").get();
     var data = snapshot.data() as Map;
     listt = data.values.toList();
-    // var categoriesdata = data['zomato'] as List<dynamic>;
-    print(listt[0]);
-    print(listt.length);
+
+    // print(listt[0]);
+    // print(listt.length);
     for (var i = 0; i < listt.length; i++) {
-      print(listt[i]['name']);
+      print(listt[i]['ipo-details']);
     }
     return listt;
   }
@@ -29,6 +25,6 @@ class CategoryServices {
   }
 
   String returningTitle(int index) {
-    return listt[index]['name'];
+    return listt[index]['ipo-details'];
   }
 }
