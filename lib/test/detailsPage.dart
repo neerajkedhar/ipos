@@ -33,7 +33,7 @@ class _DetailsPageState extends State<DetailsPage>
   CategoryServices cats = new CategoryServices();
   @override
   Widget build(BuildContext context) {
-    print(cats.listt);
+    print(cats.liveIPOlist);
     return Scaffold(
         appBar: AppBar(
           title: Text("app"),

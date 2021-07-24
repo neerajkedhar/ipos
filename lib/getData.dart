@@ -4,27 +4,33 @@ import 'package:flutter/foundation.dart';
 class CategoryServices {
   FirebaseFirestore? _instance;
 
-  var listt;
-  Future getCatFromFireStore() async {
+  var liveIPOlist;
+  Future getFromLiveIPOFireStore() async {
     _instance = FirebaseFirestore.instance;
     CollectionReference categories = _instance!.collection("ipos");
     DocumentSnapshot snapshot = await categories.doc("current-ipos").get();
     var data = snapshot.data() as Map;
-    listt = data.values.toList();
+    liveIPOlist = data.values.toList();
 
-    // print(listt[0]);
-    // print(listt.length);
-    for (var i = 0; i < listt.length; i++) {
-      print(listt[i]['ipo-details']);
+    for (var i = 0; i < liveIPOlist.length; i++) {
+      print(liveIPOlist[i]['ipo-details']);
     }
-    return listt;
+    getFromUpcomingIPOFireStore();
+    return liveIPOlist;
   }
 
-  funnn() {
-    print(listt);
-  }
+  var upcomingIPOList;
+  Future getFromUpcomingIPOFireStore() async {
+    _instance = FirebaseFirestore.instance;
+    CollectionReference categories = _instance!.collection("ipos");
+    DocumentSnapshot snapshot = await categories.doc("upcoming-ipo").get();
+    var data = snapshot.data() as Map;
+    upcomingIPOList = data.values.toList();
+    print(upcomingIPOList);
 
-  String returningTitle(int index) {
-    return listt[index]['ipo-details'];
+    // for (var i = 0; i < liveIPOlist.length; i++) {
+    //   print(liveIPOlist[i]['ipo-details']);
+    // }
+    return liveIPOlist;
   }
 }

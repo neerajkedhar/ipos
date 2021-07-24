@@ -22,7 +22,7 @@ class _BoardAppState extends State<BoardApp> {
           title: Text("app"),
         ),
         body: FutureBuilder(
-            future: cats.getCatFromFireStore(),
+            future: cats.getFromLiveIPOFireStore(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: Text('Please wait its loading...'));
@@ -32,7 +32,8 @@ class _BoardAppState extends State<BoardApp> {
                 else
                   return Center(
                       child: ListView.builder(
-                          itemCount: cats.listt.length,
+                          shrinkWrap: true,
+                          itemCount: cats.liveIPOlist.length,
                           itemBuilder: (context, index) {
                             return Container(
                                 child: GestureDetector(
