@@ -1,79 +1,286 @@
 import 'package:flutter/material.dart';
+import 'package:ipos/screens/listedIPODetailsPage.dart';
 
-Widget liveipowidget(Color mainText, subText, foreground, var listt) {
-  return Container(
-    margin: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      color: foreground,
+Widget liveipowidget(
+    Color mainText, subText, foreground, var listt, int index) {
+  String aboutFromCloud = listt[index]['about-company']['about'];
+  final newString = aboutFromCloud.replaceAll("\\n", "\n");
+  var some = listt[index]['subscription-details'].length;
+  var rii;
+  var date;
+  if (some > 2) {
+    if (listt[index]['subscription-details']['day3'] != null) {
+      rii = listt[index]['subscription-details']['day3']['rii'];
+      date = listt[index]['subscription-details']['day3']['date'];
+      print("zooom....3 $rii");
+    } else if (listt[index]['subscription-details']['day2'] != null) {
+      rii = listt[index]['subscription-details']['day2']['rii'];
+      date = listt[index]['subscription-details']['day2']['date'];
+      print("zooom....2 $rii");
+    } else if (listt[index]['subscription-details']['day1'] != null) {
+      rii = listt[index]['subscription-details']['day1']['rii'];
+      date = listt[index]['subscription-details']['day1']['date'];
+      print("zooom....1 $rii");
+    } else {
+      rii = "-";
+      date = "-";
+    }
+  }
+
+  return GestureDetector(
+    onTap: () {},
+    child: Container(
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: foreground,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Image.network(
+                  "${listt[index]['logo']}",
+                  width: 50,
+                  height: 50,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${listt[index]['ipo-details']['ipo-name']}",
+                      style: TextStyle(fontSize: 18, color: mainText),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text("${listt[index]['ipo-details']['company-name']}",
+                        style: TextStyle(fontSize: 12, color: subText)),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(height: 25),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text("${listt[index]['ipo-details']['bidding-dates']}",
+                        style: TextStyle(fontSize: 14, color: mainText)),
+                    Text("Bidding dates",
+                        style: TextStyle(fontSize: 12, color: subText))
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("₹${listt[index]['ipo-details']['issue-price']}"),
+                    Text("issue price",
+                        style: TextStyle(fontSize: 12, color: subText))
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("${listt[index]['ipo-details']['market-lot']}"),
+                    Text("lot", style: TextStyle(fontSize: 12, color: subText))
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 25),
+            Text(
+              "Expected Premium(GMP) is ₹${listt[index]['gmp']['price']}.",
+              style: TextStyle(fontSize: 12, color: subText),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "IPO is subscribed $rii in Retail Market as of $date.",
+              style: TextStyle(fontSize: 12, color: subText),
+            ),
+            SizedBox(height: 10),
+            Text(
+                "Allotment date ${listt[index]['ipo-details']['allotment-date']}.",
+                style: TextStyle(fontSize: 12, color: subText)),
+          ],
+        ),
+      ),
     ),
-    child: Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                height: 50,
-                width: 50,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Company IPO",
-                    style: TextStyle(fontSize: 18, color: mainText),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text("Company Title Limited",
-                      style: TextStyle(fontSize: 12, color: subText)),
-                ],
-              )
-            ],
-          ),
-          SizedBox(height: 25),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  Text("16 Jul - 20 Jul 2021",
-                      style: TextStyle(fontSize: 14, color: mainText)),
-                  Text("Bidding dates",
-                      style: TextStyle(fontSize: 12, color: subText))
-                ],
-              ),
-              Column(
-                children: [
-                  Text("1073 - 1017"),
-                  Text("issue price",
-                      style: TextStyle(fontSize: 12, color: subText))
-                ],
-              ),
-              Column(
-                children: [
-                  Text("13"),
-                  Text("lot", style: TextStyle(fontSize: 12, color: subText))
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 25),
-          Text(
-            "Expected Premium(GMP) is 749 (49%)",
-            style: TextStyle(fontSize: 12, color: subText),
-          ),
-          SizedBox(height: 5),
-          Text("Going to be listed on 24 Jul 2020",
-              style: TextStyle(fontSize: 12, color: subText))
-        ],
+  );
+}
+
+Widget upcomingipowidget(
+    Color mainText, subText, foreground, var listt, int index) {
+  return GestureDetector(
+    onTap: () {},
+    child: Container(
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: foreground,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Image.network(
+                  "${listt[index]['logo']}",
+                  width: 50,
+                  height: 50,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${listt[index]['ipo-details']['ipo-name']}",
+                      style: TextStyle(fontSize: 18, color: mainText),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text("${listt[index]['ipo-details']['company-name']}",
+                        style: TextStyle(fontSize: 12, color: subText)),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(height: 25),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text("${listt[index]['ipo-details']['bidding-dates']}",
+                        style: TextStyle(fontSize: 14, color: mainText)),
+                    Text("Bidding dates",
+                        style: TextStyle(fontSize: 12, color: subText))
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("₹${listt[index]['ipo-details']['issue-price']}"),
+                    Text("issue price",
+                        style: TextStyle(fontSize: 12, color: subText))
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("${listt[index]['ipo-details']['market-lot']}"),
+                    Text("lot", style: TextStyle(fontSize: 12, color: subText))
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 25),
+            Text(
+              "Expected Premium(GMP) is ₹${listt[index]['gmp']['price']}.",
+              style: TextStyle(fontSize: 12, color: subText),
+            ),
+            SizedBox(height: 10),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget listedipowidget(
+    Color mainText, subText, foreground, var listt, int index, var context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ListedIPODetailsPage(listt[index])),
+      );
+    },
+    child: Container(
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: foreground,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Image.network(
+                  "${listt[index]['logo']}",
+                  width: 50,
+                  height: 50,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${listt[index]['ipo-details']['ipo-name']}",
+                      style: TextStyle(fontSize: 18, color: mainText),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text("${listt[index]['ipo-details']['company-name']}",
+                        style: TextStyle(fontSize: 12, color: subText)),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(height: 25),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text("${listt[index]['ipo-details']['bidding-dates']}",
+                        style: TextStyle(fontSize: 14, color: mainText)),
+                    Text("Bidding dates",
+                        style: TextStyle(fontSize: 12, color: subText))
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("₹${listt[index]['ipo-details']['issue-price']}"),
+                    Text("issue price",
+                        style: TextStyle(fontSize: 12, color: subText))
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("${listt[index]['ipo-details']['market-lot']}"),
+                    Text("lot", style: TextStyle(fontSize: 12, color: subText))
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 25),
+            Text(
+              "Listed at ₹${listt[index]['gmp']['price']} with ₹ ${listt[index]['gmp']['percent']}% listing gains",
+              style: TextStyle(fontSize: 12, color: subText),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "IPO is subscribed ${listt[index]['subscription-details']['day3']['rii']} in Retail Market as of ${listt[index]['subscription-details']['day1']['date']}.",
+              style: TextStyle(fontSize: 12, color: subText),
+            ),
+          ],
+        ),
       ),
     ),
   );

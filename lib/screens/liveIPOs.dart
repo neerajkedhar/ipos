@@ -24,7 +24,7 @@ class _LiveIPOState extends State<LiveIPO> {
   var firestoreDb = FirebaseFirestore.instance.collection("ipos").snapshots();
   @override
   Widget build(BuildContext context) {
-    print("printing asses.....${cats.liveIPOlist}");
+    // print("printing asses.....${cats.liveIPOlist}");
     background = Theme.of(context).brightness == Brightness.dark
         ? colors.darkBG
         : colors.liteBG;
@@ -68,7 +68,7 @@ class _LiveIPOState extends State<LiveIPO> {
                             itemCount: cats.liveIPOlist.length,
                             itemBuilder: (context, index) {
                               return liveipowidget(mainText, subText,
-                                  foreground, cats.liveIPOlist);
+                                  foreground, cats.liveIPOlist, index);
                             });
                     }
                   }),
@@ -93,8 +93,8 @@ class _LiveIPOState extends State<LiveIPO> {
                             shrinkWrap: true,
                             itemCount: cats.upcomingIPOList.length,
                             itemBuilder: (context, index) {
-                              return liveipowidget(mainText, subText,
-                                  foreground, cats.upcomingIPOList);
+                              return upcomingipowidget(mainText, subText,
+                                  foreground, cats.upcomingIPOList, index);
                             });
                     }
                   }),

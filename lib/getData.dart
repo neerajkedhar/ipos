@@ -12,9 +12,8 @@ class CategoryServices {
     var data = snapshot.data() as Map;
     liveIPOlist = data.values.toList();
 
-    for (var i = 0; i < liveIPOlist.length; i++) {
-      print(liveIPOlist[i]['ipo-details']);
-    }
+    for (var i = 0; i < liveIPOlist.length; i++) {}
+
     getFromUpcomingIPOFireStore();
     return liveIPOlist;
   }
@@ -26,11 +25,18 @@ class CategoryServices {
     DocumentSnapshot snapshot = await categories.doc("upcoming-ipo").get();
     var data = snapshot.data() as Map;
     upcomingIPOList = data.values.toList();
-    print(upcomingIPOList);
 
-    // for (var i = 0; i < liveIPOlist.length; i++) {
-    //   print(liveIPOlist[i]['ipo-details']);
-    // }
     return liveIPOlist;
+  }
+
+  var listedIPOList;
+  Future getFromListedIPOFireStore() async {
+    _instance = FirebaseFirestore.instance;
+    CollectionReference categories = _instance!.collection("ipos");
+    DocumentSnapshot snapshot = await categories.doc("listed-ipos").get();
+    var data = snapshot.data() as Map;
+    listedIPOList = data.values.toList();
+
+    return listedIPOList;
   }
 }
