@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ipos/screens/listedIPODetailsPage.dart';
+import 'package:ipos/screens/liveIPODetailsPage.dart';
+import 'package:ipos/screens/upcomingIPODetailsPage.dart';
 
 Widget liveipowidget(
-    Color mainText, subText, foreground, var listt, int index) {
+    Color mainText, subText, foreground, var listt, int index, var context) {
   String aboutFromCloud = listt[index]['about-company']['about'];
   final newString = aboutFromCloud.replaceAll("\\n", "\n");
   var some = listt[index]['subscription-details'].length;
@@ -28,7 +30,13 @@ Widget liveipowidget(
   }
 
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LiveIPODetailsPage(listt[index])),
+      );
+    },
     child: Container(
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -115,9 +123,15 @@ Widget liveipowidget(
 }
 
 Widget upcomingipowidget(
-    Color mainText, subText, foreground, var listt, int index) {
+    Color mainText, subText, foreground, var listt, int index, var context) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => UpcomingIPODetailsPage(listt[index])),
+      );
+    },
     child: Container(
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(

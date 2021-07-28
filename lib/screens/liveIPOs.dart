@@ -68,7 +68,7 @@ class _LiveIPOState extends State<LiveIPO> {
                             itemCount: cats.liveIPOlist.length,
                             itemBuilder: (context, index) {
                               return liveipowidget(mainText, subText,
-                                  foreground, cats.liveIPOlist, index);
+                                  foreground, cats.liveIPOlist, index, context);
                             });
                     }
                   }),
@@ -93,8 +93,13 @@ class _LiveIPOState extends State<LiveIPO> {
                             shrinkWrap: true,
                             itemCount: cats.upcomingIPOList.length,
                             itemBuilder: (context, index) {
-                              return upcomingipowidget(mainText, subText,
-                                  foreground, cats.upcomingIPOList, index);
+                              return upcomingipowidget(
+                                  mainText,
+                                  subText,
+                                  foreground,
+                                  cats.upcomingIPOList,
+                                  index,
+                                  context);
                             });
                     }
                   }),
