@@ -103,85 +103,9 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
                   SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("Listing Details"),
+                    child: Text("GMP"),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: foreground,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(26.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: (MediaQuery.of(context).size.width / 2) - 20,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        "${widget.listt['ipo-details']['listing-date']}"),
-                                    SizedBox(height: 5),
-                                    Text("Listed on",
-                                        style: TextStyle(
-                                            fontSize: 12, color: subText)),
-                                  ],
-                                ),
-                                SizedBox(height: 20),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("${widget.listt['gmp']['price']}"),
-                                    SizedBox(height: 5),
-                                    Text("Listing Price",
-                                        style: TextStyle(
-                                            fontSize: 12, color: subText)),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  widget.listt['gmp']['positive'] == true
-                                      ? Text(
-                                          "+${widget.listt['gmp']['gain']} (${widget.listt['gmp']['percent']}%)",
-                                          style: TextStyle(color: accent))
-                                      : Text(
-                                          "-${widget.listt['gmp']['gain']} (${widget.listt['gmp']['percent']}%)",
-                                          style: TextStyle(
-                                              color: Colors.redAccent)),
-                                  SizedBox(height: 5),
-                                  Text("Listing Gains",
-                                      style: TextStyle(
-                                          fontSize: 12, color: subText)),
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("BSE, NSE"),
-                                  SizedBox(height: 5),
-                                  Text("Listed at",
-                                      style: TextStyle(
-                                          fontSize: 12, color: subText)),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  gmp(),
                   SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -400,246 +324,6 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Subsciption Details"),
-                  ),
-                  Container(
-                      child: Column(children: [
-                    TabBar(
-                        controller: _controller1,
-                        indicatorColor: accent,
-                        labelColor: accent,
-                        unselectedLabelColor: Colors.grey,
-                        tabs: [
-                          Tab(
-                            text:
-                                "${widget.listt['subscription-details']['day3']['date']}",
-                          ),
-                          Tab(
-                            text:
-                                "${widget.listt['subscription-details']['day2']['date']}",
-                          ),
-                          Tab(
-                            text:
-                                "${widget.listt['subscription-details']['day1']['date']}",
-                          )
-                        ]),
-                    SizedBox(
-                      height:
-                          widget.listt['subscription-details']['day1'].length >
-                                  5
-                              ? 220
-                              : 180,
-                      child: TabBarView(controller: _controller1, children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: foreground,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(28.0),
-                            child: Column(children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Retail Individual Investors(You) :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day3']['rii']}")
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Non-Institutional Investors :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day3']['nii']}")
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Qualified Institutional Investors :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day3']['qib']}")
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              widget.listt['subscription-details']['day3']
-                                          .length >
-                                      5
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Employee :"),
-                                        Text(
-                                            "${widget.listt['subscription-details']['day3']['emp']}")
-                                      ],
-                                    )
-                                  : Container(),
-                              widget.listt['subscription-details']['day3']
-                                          .length >
-                                      5
-                                  ? SizedBox(height: 20)
-                                  : SizedBox(height: 0),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Total :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day3']['total']}")
-                                ],
-                              ),
-                            ]),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: foreground,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(28.0),
-                            child: Column(children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Retail Individual Investors(You) :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day2']['rii']}")
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Non-Institutional Investors :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day2']['nii']}")
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Qualified Institutional Investors :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day2']['qib']}")
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              widget.listt['subscription-details']['day2']
-                                          .length >
-                                      5
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Employee :"),
-                                        Text(
-                                            "${widget.listt['subscription-details']['day2']['emp']}")
-                                      ],
-                                    )
-                                  : Container(),
-                              widget.listt['subscription-details']['day2']
-                                          .length >
-                                      5
-                                  ? SizedBox(height: 20)
-                                  : SizedBox(height: 0),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Total :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day2']['total']}")
-                                ],
-                              ),
-                            ]),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: foreground,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(28.0),
-                            child: Column(children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Retail Individual Investors(You) :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day1']['rii']}")
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Non-Institutional Investors :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day1']['nii']}")
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Qualified Institutional Investors :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day1']['qib']}")
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              widget.listt['subscription-details']['day1']
-                                          .length >
-                                      5
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Employee :"),
-                                        Text(
-                                            "${widget.listt['subscription-details']['day1']['emp']}")
-                                      ],
-                                    )
-                                  : Container(),
-                              widget.listt['subscription-details']['day1']
-                                          .length >
-                                      5
-                                  ? SizedBox(height: 20)
-                                  : SizedBox(height: 0),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Total :"),
-                                  Text(
-                                      "${widget.listt['subscription-details']['day1']['total']}")
-                                ],
-                              ),
-                            ]),
-                          ),
-                        ),
-                      ]),
-                    )
-                  ])),
                   SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -1006,5 +690,25 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
             ))
         //  floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         );
+  }
+
+  Widget gmp() {
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: foreground,
+        ),
+        child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Expected Grey Market Premium"),
+                  widget.listt['gmp']['positive'] == true
+                      ? Text("+ ₹${widget.listt['gmp']['price']}",
+                          style: TextStyle(color: accent))
+                      : Text("- ₹${widget.listt['gmp']['price']}",
+                          style: TextStyle(color: Colors.redAccent)),
+                ])));
   }
 }
