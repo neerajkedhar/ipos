@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:dio/dio.dart';
 
 class CategoryServices {
   FirebaseFirestore? _instance;
@@ -36,7 +37,59 @@ class CategoryServices {
     DocumentSnapshot snapshot = await categories.doc("listed-ipos").get();
     var data = snapshot.data() as Map;
     listedIPOList = data.values.toList();
-
+    GetNews().getHttp();
     return listedIPOList;
+  }
+}
+
+class GetNews {
+  var newsList;
+  Future getHttp() async {
+    try {
+      var moneyresponse = await Dio().get(
+          'https://newsapi.org/v2/everything?q=moneycontrol%20ipos&apiKey=746a076d37f241f2acf59c8d6920ed75');
+      var mcnewsData = moneyresponse.data['articles'];
+      newsList = mcnewsData;
+      print(newsList);
+    } catch (e) {
+      print(e);
+    }
+    // getFromListedIPOFireStore();
+  }
+
+  var iposNewsList;
+
+  FirebaseFirestore? _instance;
+  Future getFromIPONewsFireStore() async {
+    _instance = FirebaseFirestore.instance;
+    CollectionReference categories = _instance!.collection("ipos");
+    DocumentSnapshot snapshot = await categories.doc("ipos-news").get();
+    var data = snapshot.data() as Map;
+    iposNewsList = data.values.toList();
+
+    print(data);
+    return data;
+  }
+}
+
+class SetNews {
+  CollectionReference users = FirebaseFirestore.instance.collection('ipos');
+
+  Future addUser(
+      var index, source, title, description, urlimage, url, date) async {
+    print("$index");
+    return users
+        .doc("ipos-news")
+        .update({
+          "$index": {
+            "source": source,
+            "title": title,
+            "description": description,
+            "urlToImage": urlimage,
+            "url": url,
+          },
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
   }
 }

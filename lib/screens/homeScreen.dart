@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ipos/data/themeChanger.dart';
 import 'package:ipos/data/uicolors.dart';
+import 'package:ipos/screens/iponews.dart';
 import 'package:ipos/screens/listedIPOs.dart';
 import 'package:ipos/screens/liveIPOs.dart';
+import 'package:ipos/screens/newstoupdate.dart';
 
 //import '../getData.dart';
 
@@ -24,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     //  sriesList = _createRandomData();
-    _controller = TabController(length: 2, vsync: this);
+    _controller = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -47,18 +49,29 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ThemeChanger.of(context)!.changeTheme();
               },
               icon: Icon(Icons.wb_sunny)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NewsToUpdate(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.new_releases_sharp)),
         ],
         bottom: TabBar(
           controller: _controller,
-          tabs: [Tab(text: "Live IPOs"), Tab(text: "Listed IPOs")],
+          tabs: [
+            Tab(text: "Live IPOs"),
+            Tab(text: "Listed IPOs"),
+            Tab(text: "IPO News")
+          ],
         ),
       ),
       body: TabBarView(
         controller: _controller,
-        children: [
-          LiveIPO(),
-          ListedIPO(),
-        ],
+        children: [LiveIPO(), ListedIPO(), IPONews()],
       ),
     );
   }
