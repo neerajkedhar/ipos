@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ipos/data/themeChanger.dart';
 import 'package:ipos/data/uicolors.dart';
+import 'package:ipos/icons/flutter_menu_icons.dart';
+
 import 'package:ipos/screens/iponews.dart';
 import 'package:ipos/screens/listedIPOs.dart';
 import 'package:ipos/screens/liveIPOs.dart';
@@ -17,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   late Color background;
   late Color foreground;
   late Color accent;
@@ -39,17 +42,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         : colors.liteFG;
     accent = colors.accent;
     return Scaffold(
-      
+      key: _scaffoldKey,
+      drawer: Drawer(),
       appBar: AppBar(
         backgroundColor: background,
         elevation: 0,
         title: Text("IPO Cart"),
         leading: IconButton(
             onPressed: () {
-              Scaffold.of(context).openDrawer();
-           
+              _scaffoldKey.currentState!.openDrawer();
             },
-            icon: Icon(Icons.menu)),
+            icon: Icon(FlutterMenu.union_50, size: 10)),
         actions: [
           IconButton(
               onPressed: () {
