@@ -9,14 +9,17 @@ class Webopen extends StatefulWidget {
 }
 
 class _WebopenState extends State<Webopen> {
+  WebViewController? _controller;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: WebView(
-        initialUrl: widget.urlString,
-        javascriptMode: JavascriptMode.unrestricted,
-      ),
+          initialUrl: widget.urlString,
+          javascriptMode: JavascriptMode.unrestricted,
+          onWebViewCreated: (WebViewController webviewcontroller) {
+            _controller = webviewcontroller;
+          }),
     );
   }
 }

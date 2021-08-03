@@ -78,7 +78,6 @@ class _LiveIPOState extends State<LiveIPO> {
                 child: Text("Upcoming IPOs",
                     style: TextStyle(fontSize: 12, color: accent)),
               ),
-              // SizedBox(height: 10),
               FutureBuilder(
                   future: cats.getFromUpcomingIPOFireStore(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {

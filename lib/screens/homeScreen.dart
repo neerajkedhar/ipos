@@ -39,10 +39,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         : colors.liteFG;
     accent = colors.accent;
     return Scaffold(
+      
       appBar: AppBar(
         backgroundColor: background,
         elevation: 0,
         title: Text("IPO Cart"),
+        leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+           
+            },
+            icon: Icon(Icons.menu)),
         actions: [
           IconButton(
               onPressed: () {
