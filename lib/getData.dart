@@ -11,7 +11,8 @@ class CategoryServices {
     CollectionReference categories = _instance!.collection("ipos");
     DocumentSnapshot snapshot = await categories.doc("current-ipos").get();
     var data = snapshot.data() as Map;
-    liveIPOlist = data.values.toList();
+    var ipos = data.values.toList();
+    liveIPOlist = new List.from(ipos.reversed);
 
     for (var i = 0; i < liveIPOlist.length; i++) {}
 
@@ -42,12 +43,14 @@ class CategoryServices {
   }
 }
 
+//https://newsapi.org/v2/everything?q=moneycontrol%20ipos&apiKey=746a076d37f241f2acf59c8d6920ed75
+
 class GetNews {
   var newsList;
   Future getHttp() async {
     try {
       var moneyresponse = await Dio().get(
-          'https://newsapi.org/v2/everything?q=moneycontrol%20ipos&apiKey=746a076d37f241f2acf59c8d6920ed75');
+          'https://newsapi.org/v2/everything?q=ipos%20news%20in%20india&from=2021-07-03&sortBy=publishedAt&apiKey=746a076d37f241f2acf59c8d6920ed75');
       var mcnewsData = moneyresponse.data['articles'];
       newsList = mcnewsData;
       print(newsList);

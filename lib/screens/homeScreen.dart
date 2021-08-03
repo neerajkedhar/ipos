@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     accent = colors.accent;
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(),
+      drawer: drawer(),
       appBar: AppBar(
         backgroundColor: background,
         elevation: 0,
@@ -82,6 +82,58 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       body: TabBarView(
         controller: _controller,
         children: [LiveIPO(), ListedIPO(), IPONews()],
+      ),
+    );
+  }
+
+  Widget drawer() {
+    return Drawer(
+      child: Column(
+        children: [
+          Row(children: [
+            Text("jksdj"),
+          ]),
+          ListTile(
+            leading: Icon(Icons.dark_mode_rounded),
+            title: Text("Dark Mode"),
+            trailing: Switch(
+              value: true,
+              onChanged: (bool value) {},
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.dark_mode_rounded),
+            title: Text("Dark Mode"),
+            trailing: Switch(
+              value: true,
+              onChanged: (bool value) {},
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.dark_mode_rounded),
+            title: Text("Dark Mode"),
+            trailing: Switch(
+              value: true,
+              onChanged: (bool value) {},
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.dark_mode_rounded),
+            title: Text("Dark Mode"),
+            trailing: Switch(
+              value: true,
+              onChanged: (bool value) {},
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.dark_mode_rounded),
+            title: Text("Dark Mode"),
+            trailing: Switch(
+              value: true,
+              onChanged: (bool value) {},
+            ),
+          ),
+        ],
       ),
     );
   }
