@@ -9,6 +9,7 @@ import 'package:ipos/screens/listedIPOs.dart';
 import 'package:ipos/screens/liveIPOs.dart';
 import 'package:ipos/screens/newstoupdate.dart';
 import 'package:ipos/screens/webopen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import '../getData.dart';
 
@@ -21,6 +22,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  SharedPreferences? prefs;
+  final String key = "Term&conditions";
+  bool isTnCAccepted = false;
   late Color background;
   late Color foreground;
   late Color accent;
@@ -32,8 +36,68 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    //  sriesList = _createRandomData();
+    initPrefs();
     _controller = TabController(length: 3, vsync: this);
+  }
+
+  saveToPrefs(bool val) async {
+    await initPrefs();
+    prefs!.setBool(key, val);
+  }
+
+  initPrefs() async {
+    if (prefs == null) {
+      prefs = await SharedPreferences.getInstance();
+      isTnCAccepted = prefs!.getBool(key) ?? false;
+      if (!isTnCAccepted) {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Center(child: Text('Alert')),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        "message",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          ElevatedButton(
+                              child: Text('Accept'),
+                              onPressed: () {
+                                saveToPrefs(true);
+                                Navigator.of(context).pop();
+                              }),
+                          ElevatedButton(
+                              child: Text('Decline'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              })
+                        ])
+                  ],
+                ),
+              );
+            });
+      }
+    }
+  }
+
+  showD() {
+    saveToPrefs(false);
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text('do yo ex'),
+            ));
   }
 
   @override
@@ -52,51 +116,54 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     subText = Theme.of(context).brightness == Brightness.dark
         ? colors.darksubtext
         : colors.litesubtext;
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: drawer(),
-      appBar: AppBar(
-        backgroundColor: background,
-        elevation: 0,
-        title: Text(
-          "IPO Market",
-          style: TextStyle(color: mainText),
-        ),
-        leading: IconButton(
-            onPressed: () {
-              _scaffoldKey.currentState!.openDrawer();
-            },
-            icon: Icon(
-              FlutterMenu.union_50,
-              size: 10,
-              color: mainText,
-            )),
-        actions: [
-          IconButton(
+    return WillPopScope(
+      onWillPop: showD(),
+      child: Scaffold(
+        key: _scaffoldKey,
+        drawer: drawer(),
+        appBar: AppBar(
+          backgroundColor: background,
+          elevation: 0,
+          title: Text(
+            "IPO Market",
+            style: TextStyle(color: mainText),
+          ),
+          leading: IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NewsToUpdate(),
-                  ),
-                );
+                _scaffoldKey.currentState!.openDrawer();
               },
-              icon: Icon(Icons.new_releases_sharp)),
-        ],
-        bottom: TabBar(
-          labelColor: accent,
-          indicatorColor: accent,
-          controller: _controller,
-          tabs: [
-            Tab(text: "Live IPOs"),
-            Tab(text: "Listed IPOs"),
-            Tab(text: "IPO News")
+              icon: Icon(
+                FlutterMenu.union_50,
+                size: 10,
+                color: mainText,
+              )),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NewsToUpdate(),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.new_releases_sharp)),
           ],
+          bottom: TabBar(
+            labelColor: accent,
+            indicatorColor: accent,
+            controller: _controller,
+            tabs: [
+              Tab(text: "Live IPOs"),
+              Tab(text: "Listed IPOs"),
+              Tab(text: "IPO News")
+            ],
+          ),
         ),
-      ),
-      body: TabBarView(
-        controller: _controller,
-        children: [LiveIPO(), ListedIPO(), IPONews()],
+        body: TabBarView(
+          controller: _controller,
+          children: [LiveIPO(), ListedIPO(), IPONews()],
+        ),
       ),
     );
   }

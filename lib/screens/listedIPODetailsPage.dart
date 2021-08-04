@@ -986,14 +986,26 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
                         padding: const EdgeInsets.all(20.0),
                         child: Text("${widget.listt['promoters']}"),
                       )),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Promoters"),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: foreground,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                            "Any financial information or ideas published anywhere within this application, should not be considered as an advice to buy or sell securities or invest in IPOs. All matter published here is purely for education and information purpose only. All the infomation published in this application is gathered from the online and other news publications, so the information here may not be accurate and under no circumstances you should use this information to make investment decisions. \n \n We are not SEBI egistered analyst. App users must consult a qualified financial advisor prior to making actual investment or financial decisions, "),
+                      ))
                 ],
               ),
             )),
         floatingActionButton: GestureDetector(
-            onTap: () {
-              print(
-                  "$objective, $newString, ${widget.listt['promoters']}, ${widget.listt['ipo-details']['ipo-name']}, ${widget.listt['promoters']}, $objective, $pros, $cons, ₹${widget.listt['valuation']['eps']}, ₹${widget.listt['valuation']['nav']}, ${widget.listt['valuation']['pe-ratio']}, ${widget.listt['valuation']['ronw']},31 Mar ${widget.listt['financials']['mar1']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, 31 Mar ${widget.listt['financials']['mar2']['year']}, ${widget.listt['about-company']['founded']}, ${widget.listt['about-company']['manager']}, $newString, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['subscription-details']['day2']['date']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['bidding-dates']}, ${widget.listt['ipo-details']['listing-date']}, ${widget.listt['ipo-details']['listing-date']}, ${widget.listt['ipo-details']['listing-date']}, ${widget.listt['ipo-details']['listing-date']}, ${widget.listt['ipo-details']['listing-date']}, ${widget.listt['ipo-details']['listing-date']}");
-            },
+            onTap: () {},
             child: Container(
               width: (MediaQuery.of(context).size.width) * 0.9,
               height: 50,
@@ -1007,8 +1019,6 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
-            ))
-        //  floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        );
+            )));
   }
 }
