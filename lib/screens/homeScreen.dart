@@ -1,4 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ipos/data/themeChanger.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/icons/flutter_menu_icons.dart';
@@ -11,6 +14,19 @@ import 'package:ipos/screens/webopen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import '../getData.dart';
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'high_importance_channel', // id
+  'High Importance Notifications', // title
+  'This channel is used for important notifications.', // description
+  importance: Importance.max,
+);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("a msg from firebasecjust showed up: ${message.messageId}");
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -36,7 +52,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     initPrefs();
+    fb();
     _controller = TabController(length: 3, vsync: this);
+  }
+
+  fb() async {
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
   }
 
   saveToPrefs(bool val) async {
@@ -44,59 +76,72 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     prefs!.setBool(key, val);
   }
 
+  alert() {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: background,
+            title: Text('Terms and Conditions'),
+            content: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    child: Text(
+                      "Any financial information or ideas published anywhere within this application, should not be considered as an advice to buy or sell securities or invest in IPOs. All matter published here is purely for education and information purpose only. All the infomation published in this application is gathered from the internet and other news publications, so the information here may not be accurate and under no circumstances you should use this information to make investment decisions. \n \n We are not SEBI egistered analyst. App users must consult a qualified financial advisor prior to making actual investment or financial decisions, \n \n YOUR USE OF THE APP AND YOUR RELIANCE ON ANY INFORMATION ON THE App IS SOLELY AT YOUR OWN RISK. \n \n by clicking on agree, you agree to the Terms and Conditions to use this Application.",
+                      style: TextStyle(color: subText),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    child: Text(
+                      "External Links Disclaimer",
+                      style: TextStyle(color: mainText, fontSize: 20),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    child: Text(
+                      "The App may contain (or you may be sent through the Site) links to other websites or content belonging to or originating from third parties or links to websites and features. Such external links are not investigated, monitored, or checked for accuracy, adequacy, validity, reliability, availability or completeness by us. \n \n WE DO NOT WARRANT, ENDORSE, GUARANTEE, OR ASSUME RESPONSIBILITY FOR THE ACCURACY OR RELIABILITY OF ANY INFORMATION OFFERED BY THIRD-PARTY WEBSITES LINKED THROUGH THE SITE OR ANY WEBSITE OR FEATURE LINKED IN ANY BANNER OR OTHER ADVERTISING. WE WILL NOT BE A PARTY TO OR IN ANY WAY BE RESPONSIBLE FOR MONITORING ANY TRANSACTION BETWEEN YOU AND THIRD-PARTY PROVIDERS OF PRODUCTS OR SERVICES. \n \n by clicking on agree, you agree with the Terms and Conditions to use this Application.",
+                      style: TextStyle(color: subText),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        ElevatedButton(
+                            child: Text('I Agree'),
+                            onPressed: () {
+                              saveToPrefs(true);
+                              Navigator.of(context).pop();
+                            }),
+                        // ElevatedButton(
+                        //     child: Text('Decline'),
+                        //     onPressed: () {
+                        //       Navigator.of(context).pop();
+                        //     })
+                      ])
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   initPrefs() async {
     if (prefs == null) {
       prefs = await SharedPreferences.getInstance();
       isTnCAccepted = prefs!.getBool(key) ?? false;
       if (!isTnCAccepted) {
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Center(child: Text('Alert')),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        "message",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          ElevatedButton(
-                              child: Text('Accept'),
-                              onPressed: () {
-                                saveToPrefs(true);
-                                Navigator.of(context).pop();
-                              }),
-                          ElevatedButton(
-                              child: Text('Decline'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              })
-                        ])
-                  ],
-                ),
-              );
-            });
+        alert();
+      } else {
+        // alert();
       }
     }
-  }
-
-  showD() {
-    saveToPrefs(false);
-    return showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text('do yo ex'),
-            ));
   }
 
   @override
@@ -115,54 +160,51 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     subText = Theme.of(context).brightness == Brightness.dark
         ? colors.darksubtext
         : colors.litesubtext;
-    return WillPopScope(
-      onWillPop: showD(),
-      child: Scaffold(
-        key: _scaffoldKey,
-        drawer: drawer(),
-        appBar: AppBar(
-          backgroundColor: background,
-          elevation: 0,
-          title: Text(
-            "IPO Market",
-            style: TextStyle(color: mainText),
-          ),
-          leading: IconButton(
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: drawer(),
+      appBar: AppBar(
+        backgroundColor: background,
+        elevation: 0,
+        title: Text(
+          "IPO Market",
+          style: TextStyle(color: mainText),
+        ),
+        leading: IconButton(
+            onPressed: () {
+              _scaffoldKey.currentState!.openDrawer();
+            },
+            icon: Icon(
+              FlutterMenu.union_50,
+              size: 10,
+              color: mainText,
+            )),
+        actions: [
+          IconButton(
               onPressed: () {
-                _scaffoldKey.currentState!.openDrawer();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NewsToUpdate(),
+                  ),
+                );
               },
-              icon: Icon(
-                FlutterMenu.union_50,
-                size: 10,
-                color: mainText,
-              )),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NewsToUpdate(),
-                    ),
-                  );
-                },
-                icon: Icon(Icons.new_releases_sharp)),
-          ],
-          bottom: TabBar(
-            labelColor: accent,
-            indicatorColor: accent,
-            controller: _controller,
-            tabs: [
-              Tab(text: "Live IPOs"),
-              Tab(text: "Listed IPOs"),
-              Tab(text: "IPO News")
-            ],
-          ),
-        ),
-        body: TabBarView(
+              icon: Icon(Icons.new_releases_sharp)),
+        ],
+        bottom: TabBar(
+          labelColor: accent,
+          indicatorColor: accent,
           controller: _controller,
-          children: [LiveIPO(), ListedIPO(), IPONews()],
+          tabs: [
+            Tab(text: "Live IPOs"),
+            Tab(text: "Listed IPOs"),
+            Tab(text: "IPO News")
+          ],
         ),
+      ),
+      body: TabBarView(
+        controller: _controller,
+        children: [LiveIPO(), ListedIPO(), IPONews()],
       ),
     );
   }

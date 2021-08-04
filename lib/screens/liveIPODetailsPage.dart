@@ -575,6 +575,21 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
                         child: Text("${widget.listt['promoters']}"),
                       )),
                   SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Disclaimer"),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: foreground,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                            "Any financial information or ideas published anywhere within this application, should not be considered as an advice to buy or sell securities or invest in IPOs. All matter published here is purely for education and information purpose only. All the infomation published in this application is gathered from the online and other news publications, so the information here may not be accurate and under no circumstances you should use this information to make investment decisions. \n \n We are not SEBI registered analyst. App users must consult a qualified financial advisor prior to making actual investment or financial decisions, \n\n YOUR USE OF THE APP AND YOUR RELIANCE ON ANY INFORMATION ON THE APP IS SOLELY AT YOUR OWN RISK. \n\nyou agree with the Terms and Conditions to use this Application."),
+                      )),
+                  SizedBox(height: 60),
                 ],
               ),
             )),
