@@ -140,7 +140,7 @@ Widget liveipowidget(
             ),
           ),
         )
-      : Container();
+      : Text("no  ipos");
 }
 
 Widget upcomingipowidget(
@@ -363,5 +363,5 @@ Widget listedipowidget(
             ),
           ),
         )
-      : Container();
+      : Text("No ipos");
 }
