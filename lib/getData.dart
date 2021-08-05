@@ -26,7 +26,8 @@ class CategoryServices {
     CollectionReference categories = _instance!.collection("ipos");
     DocumentSnapshot snapshot = await categories.doc("upcoming-ipo").get();
     var data = snapshot.data() as Map;
-    upcomingIPOList = data.values.toList();
+    var ipos = data.values.toList();
+    upcomingIPOList = new List.from(ipos.reversed);
 
     return liveIPOlist;
   }
@@ -37,7 +38,8 @@ class CategoryServices {
     CollectionReference categories = _instance!.collection("ipos");
     DocumentSnapshot snapshot = await categories.doc("listed-ipos").get();
     var data = snapshot.data() as Map;
-    listedIPOList = data.values.toList();
+    var ipos = data.values.toList();
+    listedIPOList = new List.from(ipos.reversed);
     GetNews().getHttp();
     return listedIPOList;
   }

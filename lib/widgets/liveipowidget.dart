@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/screens/listedIPODetailsPage.dart';
 import 'package:ipos/screens/liveIPODetailsPage.dart';
 import 'package:ipos/screens/upcomingIPODetailsPage.dart';
@@ -109,10 +110,22 @@ Widget liveipowidget(
                     ],
                   ),
                   SizedBox(height: 25),
-                  Text(
-                    "Expected Premium(GMP) is ₹${listt[index]['gmp']['price']}.",
-                    style: TextStyle(fontSize: 12, color: subText),
-                  ),
+                  RichText(
+                      text: TextSpan(
+                          text: "Expected Premium(GMP) is ",
+                          style: TextStyle(fontSize: 12, color: subText),
+                          children: [
+                        listt[index]['gmp']['positive'] == true
+                            ? TextSpan(
+                                text: "₹${listt[index]['gmp']['price']}",
+                                style: TextStyle(
+                                    fontSize: 12, color: AppColors().accent))
+                            : TextSpan(
+                                text: "₹${listt[index]['gmp']['price']}",
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.redAccent),
+                              )
+                      ])),
                   SizedBox(height: 10),
                   Text(
                     "IPO is subscribed $rii in Retail Market as of $date.",
@@ -210,10 +223,22 @@ Widget upcomingipowidget(
                     ],
                   ),
                   SizedBox(height: 25),
-                  Text(
-                    "Expected Premium(GMP) is ₹${listt[index]['gmp']['price']}.",
-                    style: TextStyle(fontSize: 12, color: subText),
-                  ),
+                  RichText(
+                      text: TextSpan(
+                          text: "Expected Premium(GMP) is ",
+                          style: TextStyle(fontSize: 12, color: subText),
+                          children: [
+                        listt[index]['gmp']['positive'] == true
+                            ? TextSpan(
+                                text: "₹${listt[index]['gmp']['price']}",
+                                style: TextStyle(
+                                    fontSize: 12, color: AppColors().accent))
+                            : TextSpan(
+                                text: "₹${listt[index]['gmp']['price']}",
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.redAccent),
+                              )
+                      ])),
                   SizedBox(height: 10),
                 ],
               ),
@@ -303,10 +328,31 @@ Widget listedipowidget(
                     ],
                   ),
                   SizedBox(height: 25),
-                  Text(
-                    "Listed at ₹${listt[index]['gmp']['price']} with ₹ ${listt[index]['gmp']['percent']}% listing gains",
-                    style: TextStyle(fontSize: 12, color: subText),
-                  ),
+                  RichText(
+                      text: TextSpan(
+                          text:
+                              "Listed at ₹${listt[index]['gmp']['price']} with ",
+                          style: TextStyle(fontSize: 12, color: subText),
+                          children: [
+                        listt[index]['gmp']['positive'] == true
+                            ? TextSpan(
+                                text: "${listt[index]['gmp']['percent']}%",
+                                style: TextStyle(
+                                    fontSize: 12, color: AppColors().accent))
+                            : TextSpan(
+                                text: "${listt[index]['gmp']['percent']}%",
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.redAccent),
+                              ),
+                        TextSpan(
+                          text: " listing gains",
+                          style: TextStyle(fontSize: 12, color: subText),
+                        ),
+                      ])),
+                  // Text(
+                  //   "Listed at ₹${listt[index]['gmp']['price']} with ${listt[index]['gmp']['percent']}% listing gains",
+                  //   style: TextStyle(fontSize: 12, color: subText),
+                  // ),
                   SizedBox(height: 10),
                   Text(
                     "IPO is subscribed ${listt[index]['subscription-details']['day3']['rii']} in Retail Market as of ${listt[index]['subscription-details']['day1']['date']}.",

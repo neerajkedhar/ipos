@@ -153,7 +153,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     foreground = Theme.of(context).brightness == Brightness.dark
         ? colors.darkFG
         : colors.liteFG;
-    accent = colors.accent;
+    accent = Theme.of(context).brightness == Brightness.dark
+        ? colors.accent
+        : colors.accentL;
     mainText = Theme.of(context).brightness == Brightness.dark
         ? colors.darkmaintext
         : colors.litemaintext;
@@ -195,6 +197,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           labelColor: accent,
           indicatorColor: accent,
           controller: _controller,
+          unselectedLabelColor: Colors.grey,
+          labelStyle: TextStyle(fontWeight: FontWeight.bold),
           tabs: [
             Tab(text: "Live IPOs"),
             Tab(text: "Listed IPOs"),

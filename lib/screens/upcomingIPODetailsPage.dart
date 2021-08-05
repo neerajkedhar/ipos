@@ -43,7 +43,9 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
     foreground = Theme.of(context).brightness == Brightness.dark
         ? colors.darkFG
         : colors.liteFG;
-    accent = colors.accent;
+    accent = Theme.of(context).brightness == Brightness.dark
+        ? colors.accent
+        : colors.accentL;
     mainText = Theme.of(context).brightness == Brightness.dark
         ? colors.darkmaintext
         : colors.litemaintext;
@@ -54,6 +56,7 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: background,
+        elevation: 0,
         title: Text("${widget.listt['ipo-details']['ipo-name']}",
             style: TextStyle(color: mainText)),
         leading: IconButton(

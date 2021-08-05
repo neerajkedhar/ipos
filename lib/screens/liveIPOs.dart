@@ -24,14 +24,15 @@ class _LiveIPOState extends State<LiveIPO> {
   var firestoreDb = FirebaseFirestore.instance.collection("ipos").snapshots();
   @override
   Widget build(BuildContext context) {
-    // print("printing asses.....${cats.liveIPOlist}");
     background = Theme.of(context).brightness == Brightness.dark
         ? colors.darkBG
         : colors.liteBG;
     foreground = Theme.of(context).brightness == Brightness.dark
         ? colors.darkFG
         : colors.liteFG;
-    accent = colors.accent;
+    accent = Theme.of(context).brightness == Brightness.dark
+        ? colors.accent
+        : colors.accentL;
     mainText = Theme.of(context).brightness == Brightness.dark
         ? colors.darkmaintext
         : colors.litemaintext;
@@ -50,8 +51,11 @@ class _LiveIPOState extends State<LiveIPO> {
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Live IPOS",
-                    style: TextStyle(fontSize: 12, color: accent)),
+                child: Text("Live IPOs",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: accent,
+                        fontWeight: FontWeight.bold)),
               ),
               FutureBuilder(
                   future: cats.getFromLiveIPOFireStore(),
@@ -76,7 +80,10 @@ class _LiveIPOState extends State<LiveIPO> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text("Upcoming IPOs",
-                    style: TextStyle(fontSize: 12, color: accent)),
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: accent,
+                        fontWeight: FontWeight.bold)),
               ),
               FutureBuilder(
                   future: cats.getFromUpcomingIPOFireStore(),

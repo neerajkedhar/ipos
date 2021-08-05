@@ -106,7 +106,9 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
     foreground = Theme.of(context).brightness == Brightness.dark
         ? colors.darkFG
         : colors.liteFG;
-    accent = colors.accent;
+    accent = Theme.of(context).brightness == Brightness.dark
+        ? colors.accent
+        : colors.accentL;
     mainText = Theme.of(context).brightness == Brightness.dark
         ? colors.darkmaintext
         : colors.litemaintext;
@@ -116,6 +118,7 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
     print(widget.listt);
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: background,
           title: Text("${widget.listt['ipo-details']['ipo-name']}",
               style: TextStyle(color: mainText)),
@@ -602,22 +605,25 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
                 ],
               ),
             )),
-        floatingActionButton: GestureDetector(
-            onTap: () {},
-            child: Container(
-              width: (MediaQuery.of(context).size.width) * 0.9,
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: accent,
-              ),
-              child: Center(
-                child: Text(
-                  "Check Allotment",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ),
-            ))
+        floatingActionButton: widget.listt['isAllotmentOpen']
+            ? GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: (MediaQuery.of(context).size.width) * 0.9,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: accent,
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Check Allotment",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  ),
+                ))
+            : Container()
         //  floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         );
   }

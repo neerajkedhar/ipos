@@ -27,7 +27,9 @@ class _IPONewsState extends State<IPONews> {
     foreground = Theme.of(context).brightness == Brightness.dark
         ? colors.darkFG
         : colors.liteFG;
-    accent = colors.accent;
+    accent = Theme.of(context).brightness == Brightness.dark
+        ? colors.accent
+        : colors.accentL;
     mainText = Theme.of(context).brightness == Brightness.dark
         ? colors.darkmaintext
         : colors.litemaintext;
