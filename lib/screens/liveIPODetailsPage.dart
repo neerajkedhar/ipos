@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/getData.dart';
+import 'package:share/share.dart';
 
 class LiveIPODetailsPage extends StatefulWidget {
   LiveIPODetailsPage(this.listt, {Key? key}) : super(key: key);
@@ -34,6 +35,16 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
       return 1;
     }
     return 3;
+  }
+
+  String returnText() {
+    if (widget.listt['subscription-details']['sub'] == "3") {
+      return "Retail Investors(You): ${widget.listt['subscription-details']['day3']['rii']}";
+    } else if (widget.listt['subscription-details']['sub'] == "3") {
+      return "Retail Investors(You): ${widget.listt['subscription-details']['day2']['rii']}";
+    } else {
+      return "Retail Investors(You): ${widget.listt['subscription-details']['day1']['rii']}";
+    }
   }
 
   Widget returntabs() {
@@ -120,8 +131,18 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
         appBar: AppBar(
           elevation: 0,
           backgroundColor: background,
-          title: Text("${widget.listt['ipo-details']['ipo-name']}",
-              style: TextStyle(color: mainText)),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Share.share(
+                      '${widget.listt['ipo-details']['ipo-name']} \n GMP:  ₹${widget.listt['gmp']['price']} \n Bidding dates: ${widget.listt['ipo-details']['bidding-dates']} \n Issue Price: ₹${widget.listt['ipo-details']['issue-price']} \n Issue Size ₹${widget.listt['ipo-details']['issue-size']} \n ${returnText()}');
+                },
+                icon: Icon(
+                  Icons.share_rounded,
+                  color: mainText,
+                )),
+            SizedBox(width: 20),
+          ],
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);

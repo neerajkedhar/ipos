@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/getData.dart';
+import 'package:share/share.dart';
 
 class ListedIPODetailsPage extends StatefulWidget {
   ListedIPODetailsPage(this.listt, {Key? key}) : super(key: key);
