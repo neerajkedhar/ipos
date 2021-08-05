@@ -259,9 +259,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               },
             ),
             ListTile(
-              leading: Icon(Icons.report_rounded),
-              title: Text("Desclaimer"),
-            ),
+                leading: Icon(Icons.report_rounded),
+                title: Text("Desclaimer"),
+                onTap: () {
+                  alert();
+                }),
             ListTile(
               leading: Icon(Icons.feedback_rounded),
               title: Text("Feedback"),

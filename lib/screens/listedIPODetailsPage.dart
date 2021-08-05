@@ -57,7 +57,16 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
     return Scaffold(
         appBar: AppBar(
           backgroundColor: background,
-          title: Text("${widget.listt['ipo-details']['ipo-name']}"),
+          title: Text("${widget.listt['ipo-details']['ipo-name']}",
+              style: TextStyle(color: mainText)),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: mainText,
+              )),
         ),
         body: Container(
             color: background,
