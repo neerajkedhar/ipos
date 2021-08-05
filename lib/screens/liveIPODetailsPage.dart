@@ -605,7 +605,7 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
                 ],
               ),
             )),
-        floatingActionButton: widget.listt['isAllotmentOpen']
+        floatingActionButton: widget.listt['isAllotmentOpen'] == true
             ? GestureDetector(
                 onTap: () {},
                 child: Container(
