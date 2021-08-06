@@ -40,7 +40,7 @@ class CategoryServices {
     var data = snapshot.data() as Map;
     var ipos = data.values.toList();
     listedIPOList = new List.from(ipos.reversed);
-    GetNews().getHttp();
+    // GetNews().getHttp();
     return listedIPOList;
   }
 }

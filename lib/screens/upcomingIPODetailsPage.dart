@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ipos/data/admobAds.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/getData.dart';
+import 'package:ipos/widgets/liveipowidget.dart';
 
 class UpcomingIPODetailsPage extends StatefulWidget {
   UpcomingIPODetailsPage(this.listt, {Key? key}) : super(key: key);
@@ -17,6 +19,12 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
     super.initState();
 
     _controller = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    show();
+    super.dispose();
   }
 
   late Color background;
@@ -61,6 +69,7 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
             style: TextStyle(color: mainText)),
         leading: IconButton(
             onPressed: () {
+              show();
               Navigator.pop(context);
             },
             icon: Icon(

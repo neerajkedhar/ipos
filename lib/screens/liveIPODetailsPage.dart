@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ipos/data/admobAds.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/getData.dart';
+import 'package:ipos/widgets/liveipowidget.dart';
 import 'package:share/share.dart';
 
 class LiveIPODetailsPage extends StatefulWidget {
@@ -93,6 +95,12 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
     }
   }
 
+  @override
+  void dispose() {
+    show();
+    super.dispose();
+  }
+
   late Color background;
   late Color foreground;
   late Color accent;
@@ -145,6 +153,7 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
           ],
           leading: IconButton(
               onPressed: () {
+                show();
                 Navigator.pop(context);
               },
               icon: Icon(

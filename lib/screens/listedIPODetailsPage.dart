@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ipos/data/admobAds.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/getData.dart';
+import 'package:ipos/widgets/liveipowidget.dart';
 import 'package:share/share.dart';
 
 class ListedIPODetailsPage extends StatefulWidget {
@@ -14,6 +16,7 @@ class ListedIPODetailsPage extends StatefulWidget {
 class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
     with TickerProviderStateMixin {
   late TabController _controller1;
+  Ads ads = new Ads();
   late TabController _controller;
   @override
   void initState() {
@@ -21,6 +24,12 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
 
     _controller1 = TabController(length: 3, vsync: this);
     _controller = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    show();
+    super.dispose();
   }
 
   late Color background;
@@ -65,6 +74,8 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
               style: TextStyle(color: mainText)),
           leading: IconButton(
               onPressed: () {
+                // ads.showInterstitialAd();
+                show();
                 Navigator.pop(context);
               },
               icon: Icon(

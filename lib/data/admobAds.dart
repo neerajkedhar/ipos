@@ -3,10 +3,11 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class Ads {
   InterstitialAd? _interstitialAd;
+
   int _numInterstitialLoadAttempts = 0;
-  void _createInterstitialAd() {
+  createInterstitialAd() {
     InterstitialAd.load(
-        adUnitId: InterstitialAd.testAdUnitId,
+        adUnitId: "ca-app-pub-3940256099942544/1033173712",
         request: AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (InterstitialAd ad) {
@@ -18,14 +19,14 @@ class Ads {
             print('InterstitialAd failed to load: $error.');
             _numInterstitialLoadAttempts += 1;
             _interstitialAd = null;
-            if (_numInterstitialLoadAttempts <= 4) {
-              _createInterstitialAd();
+            if (_numInterstitialLoadAttempts <= 3) {
+              createInterstitialAd();
             }
           },
         ));
   }
 
-  void _showInterstitialAd() {
+  void showInterstitialAd() {
     if (_interstitialAd == null) {
       print('Warning: attempt to show interstitial before loaded.');
       return;
@@ -36,12 +37,12 @@ class Ads {
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
         print('$ad onAdDismissedFullScreenContent.');
         ad.dispose();
-        _createInterstitialAd();
+        createInterstitialAd();
       },
       onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
         print('$ad onAdFailedToShowFullScreenContent: $error');
         ad.dispose();
-        _createInterstitialAd();
+        createInterstitialAd();
       },
     );
     _interstitialAd!.show();

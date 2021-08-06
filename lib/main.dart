@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipos/data/themeChanger.dart';
 import 'package:ipos/screens/homeScreen.dart';
 
@@ -22,7 +23,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  MobileAds.instance.initialize();
   runApp(MyApp());
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 

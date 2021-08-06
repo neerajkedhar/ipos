@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipos/data/admobAds.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/screens/listedIPODetailsPage.dart';
 import 'package:ipos/screens/liveIPODetailsPage.dart';
@@ -140,7 +141,7 @@ Widget liveipowidget(
             ),
           ),
         )
-      : Text("no  ipos");
+      : Container();
 }
 
 Widget upcomingipowidget(
@@ -248,12 +249,22 @@ Widget upcomingipowidget(
       : Container();
 }
 
+Ads ads = new Ads();
+void load() {
+  ads.createInterstitialAd();
+}
+
+void show() {
+  ads.showInterstitialAd();
+}
+
 Widget listedipowidget(
     Color mainText, subText, foreground, var listt, int index, var context) {
   bool isAvailable = listt[index]['available'];
   return isAvailable
       ? GestureDetector(
           onTap: () {
+            load();
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -363,5 +374,5 @@ Widget listedipowidget(
             ),
           ),
         )
-      : Text("No ipos");
+      : Container();
 }
