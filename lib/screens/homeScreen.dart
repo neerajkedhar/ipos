@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipos/data/themeChanger.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/icons/flutter_menu_icons.dart';
@@ -48,12 +49,55 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late bool themeNow;
   late Color mainText;
   late Color subText;
+  BannerAd? _anchoredBanner;
+  bool _loadingAnchoredBanner = false;
   @override
   void initState() {
     super.initState();
     initPrefs();
     fb();
     _controller = TabController(length: 3, vsync: this);
+  }
+
+  Future<void> _createAnchoredBanner(BuildContext context) async {
+    final AnchoredAdaptiveBannerAdSize? size =
+        await AdSize.getAnchoredAdaptiveBannerAdSize(
+      Orientation.portrait,
+      MediaQuery.of(context).size.width.truncate(),
+    );
+    final AdSize adSize = AdSize(height: 50, width: 300);
+    if (size == null) {
+      print('Unable to get height of anchored banner.');
+      return;
+    }
+
+    final BannerAd banner = BannerAd(
+      size: adSize,
+      request: AdRequest(),
+      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$BannerAd loaded.');
+          setState(() {
+            _anchoredBanner = ad as BannerAd?;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$BannerAd failedToLoad: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$BannerAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$BannerAd onAdClosed.'),
+      ),
+    );
+    return banner.load();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _anchoredBanner?.dispose();
   }
 
   fb() async {
@@ -138,9 +182,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       isTnCAccepted = prefs!.getBool(key) ?? false;
       if (!isTnCAccepted) {
         alert();
-      } else {
-        // alert();
-      }
+      } else {}
     }
   }
 
@@ -206,10 +248,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _controller,
-        children: [LiveIPO(), ListedIPO(), IPONews()],
-      ),
+      body: Stack(children: [
+        TabBarView(
+          controller: _controller,
+          children: [LiveIPO(), ListedIPO(), IPONews()],
+        ),
+        if (_anchoredBanner != null)
+          Container(
+            color: Colors.green,
+            width: _anchoredBanner!.size.width.toDouble(),
+            height: _anchoredBanner!.size.height.toDouble(),
+            child: AdWidget(ad: _anchoredBanner!),
+          ),
+        //  Container(width: 300, height: 100, color: Colors.green),
+      ]),
     );
   }
 
