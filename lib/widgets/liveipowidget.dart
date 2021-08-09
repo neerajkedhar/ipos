@@ -37,6 +37,7 @@ Widget liveipowidget(
   return isAvailable
       ? GestureDetector(
           onTap: () {
+            load();
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -150,6 +151,7 @@ Widget upcomingipowidget(
   return isAvailable
       ? GestureDetector(
           onTap: () {
+            load();
             Navigator.push(
               context,
               MaterialPageRoute(

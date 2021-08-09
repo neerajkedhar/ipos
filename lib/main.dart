@@ -23,7 +23,16 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
+  await MobileAds.instance.initialize().then((InitializationStatus status) {
+    print('Initialization done: ${status.adapterStatuses}');
+    MobileAds.instance.updateRequestConfiguration(
+      RequestConfiguration(
+          tagForChildDirectedTreatment:
+              TagForChildDirectedTreatment.unspecified,
+          testDeviceIds: <
+              String>[]), //when you run first time you will get your test id in logs then update it here <String>["test id"]
+    );
+  });
   runApp(MyApp());
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 

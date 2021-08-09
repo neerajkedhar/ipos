@@ -50,6 +50,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late Color mainText;
   late Color subText;
   BannerAd? _anchoredBanner;
+  BannerAd? banner;
+  bool? isLoading;
+
   bool _loadingAnchoredBanner = false;
   @override
   void initState() {
@@ -57,19 +60,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     initPrefs();
     fb();
     _controller = TabController(length: 3, vsync: this);
+    _createAnchoredBanner();
   }
 
-  Future<void> _createAnchoredBanner(BuildContext context) async {
-    final AnchoredAdaptiveBannerAdSize? size =
-        await AdSize.getAnchoredAdaptiveBannerAdSize(
-      Orientation.portrait,
-      MediaQuery.of(context).size.width.truncate(),
-    );
+  Future<void> _createAnchoredBanner() async {
+    // final AnchoredAdaptiveBannerAdSize? size =
+    //     await AdSize.getAnchoredAdaptiveBannerAdSize(
+    //   Orientation.portrait,
+    //   MediaQuery.of(context).size.width.truncate(),
+    // );
     final AdSize adSize = AdSize(height: 50, width: 300);
-    if (size == null) {
-      print('Unable to get height of anchored banner.');
-      return;
-    }
+    // if (size == null) {
+    //   print('Unable to get height of anchored banner.');
+    //   return;
+    // }
 
     final BannerAd banner = BannerAd(
       size: adSize,
@@ -186,8 +190,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     }
   }
 
+  var width;
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      width = MediaQuery.of(context).size.width;
+    });
     themeNow = Theme.of(context).brightness == Brightness.dark ? true : false;
     background = Theme.of(context).brightness == Brightness.dark
         ? colors.darkBG
@@ -254,11 +262,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           children: [LiveIPO(), ListedIPO(), IPONews()],
         ),
         if (_anchoredBanner != null)
-          Container(
-            color: Colors.green,
-            width: _anchoredBanner!.size.width.toDouble(),
-            height: _anchoredBanner!.size.height.toDouble(),
-            child: AdWidget(ad: _anchoredBanner!),
+          Positioned(
+            bottom: 0.0,
+            left: 0.0,
+            right: 0.0,
+            child: Container(
+              color: background,
+              width: _anchoredBanner!.size.width.toDouble(),
+              height: _anchoredBanner!.size.height.toDouble(),
+              child: AdWidget(ad: _anchoredBanner!),
+            ),
           ),
         //  Container(width: 300, height: 100, color: Colors.green),
       ]),

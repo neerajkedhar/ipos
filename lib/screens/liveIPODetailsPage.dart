@@ -139,6 +139,8 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
         appBar: AppBar(
           elevation: 0,
           backgroundColor: background,
+          title: Text("${widget.listt['ipo-details']['ipo-name']}",
+              style: TextStyle(color: mainText)),
           actions: [
             IconButton(
                 onPressed: () {
