@@ -35,7 +35,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.kedhar.ipo_market"
+        applicationId "com.kedhar.ipo_cart"
         minSdkVersion 19
         targetSdkVersion 30
         multiDexEnabled true
