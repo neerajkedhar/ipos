@@ -10,6 +10,7 @@ import 'package:ipos/icons/flutter_menu_icons.dart';
 import 'package:ipos/screens/iponews.dart';
 import 'package:ipos/screens/listedIPOs.dart';
 import 'package:ipos/screens/liveIPOs.dart';
+import 'package:ipos/screens/news.dart';
 import 'package:ipos/screens/newstoupdate.dart';
 import 'package:ipos/screens/webopen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     initPrefs();
     fb();
     _controller = TabController(length: 3, vsync: this);
-    _createAnchoredBanner();
+    //  _createAnchoredBanner();
   }
 
   Future<void> _createAnchoredBanner() async {
@@ -259,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       body: Stack(children: [
         TabBarView(
           controller: _controller,
-          children: [LiveIPO(), ListedIPO(), IPONews()],
+          children: [LiveIPO(), ListedIPO(), News()],
         ),
         if (_anchoredBanner != null)
           Positioned(

@@ -67,7 +67,7 @@ class _NewsState extends State<News> {
                 return ListView.builder(
                     // physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: cats.iposNewsList.length,
+                    itemCount: newsList.length,
                     itemBuilder: (context, index) {
                       return newsWidget(mainText, subText, foreground, newsList,
                           index, context);

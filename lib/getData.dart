@@ -24,7 +24,7 @@ class CategoryServices {
   Future getFromUpcomingIPOFireStore() async {
     _instance = FirebaseFirestore.instance;
     CollectionReference categories = _instance!.collection("ipos");
-    DocumentSnapshot snapshot = await categories.doc("upcoming-ipo").get();
+    DocumentSnapshot snapshot = await categories.doc("upcoming-news").get();
     var data = snapshot.data() as Map;
     var ipos = data.values.toList();
     upcomingIPOList = new List.from(ipos.reversed);
