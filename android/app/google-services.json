@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "42266687310",
-    "project_id": "ipos-in",
-    "storage_bucket": "ipos-in.appspot.com"
+    "project_number": "698204762843",
+    "project_id": "ipo-cart",
+    "storage_bucket": "ipo-cart.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:42266687310:android:2c696fd215c931c359d01f",
+        "mobilesdk_app_id": "1:698204762843:android:7b4f82ca85d4b2c12e92fe",
         "android_client_info": {
-          "package_name": "com.kedhar.ipo_market"
+          "package_name": "com.kedhar.ipo_cart"
         }
       },
       "oauth_client": [
         {
-          "client_id": "42266687310-imub799v42k0d2l9nrrb2g35mr0lt24o.apps.googleusercontent.com",
+          "client_id": "698204762843-t3r33k6o9if9d56mjlo4kepv430lngb8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCFGSoDW-gJz32hrd-VH-CxJBUsHOOf2Qs"
+          "current_key": "AIzaSyBlSwwYRmOR4tz2qrECrFQMOu1CAVPUbGw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "42266687310-imub799v42k0d2l9nrrb2g35mr0lt24o.apps.googleusercontent.com",
+              "client_id": "698204762843-t3r33k6o9if9d56mjlo4kepv430lngb8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
