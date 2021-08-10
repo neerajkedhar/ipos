@@ -58,7 +58,7 @@ Widget newsWidgets(Color mainText, Color subText, Color foreground,
     iposNewsList, int index, BuildContext context) {
   var source = iposNewsList[index]['source']['name'];
   var title = iposNewsList[index]['title'];
-  var description = iposNewsList[index]['description'];
+  //var description = iposNewsList[index]['description'];
   var urlToImage = iposNewsList[index]['urlToImage'];
   var url = iposNewsList[index]['url'];
   var publishedAt = iposNewsList[index]['publishedAt'];

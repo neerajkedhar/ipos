@@ -38,7 +38,9 @@ dependencies:
   flutter_local_notifications: ^8.0.0
   share: ^2.0.4
   webview_flutter: ^2.0.10
+  url_launcher: ^6.0.9
   google_mobile_ads: ^0.13.3
+  connectivity: ^3.0.6
   
 
 dev_dependencies:

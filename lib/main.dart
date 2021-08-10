@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipos/data/themeChanger.dart';
 import 'package:ipos/screens/homeScreen.dart';
-
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -34,17 +34,6 @@ Future<void> main() async {
     );
   });
   runApp(MyApp());
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  // await flutterLocalNotificationsPlugin
-  //     .resolvePlatformSpecificImplementation<
-  //         AndroidFlutterLocalNotificationsPlugin>()
-  //     ?.createNotificationChannel(channel);
-  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-  //   alert: true,
-  //   badge: true,
-  //   sound: true,
-  // );
 }
 
 class MyApp extends StatelessWidget {
@@ -52,6 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'IPO Cart',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -147,21 +137,48 @@ class _MyHomePageState extends State<MyHomePage> {
           primarySwatch: Colors.green,
         ),
         home: FutureBuilder(
-          future: _initialization,
+          future: checkNet(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Text("Somthing went wrong");
             }
 
-            if (snapshot.connectionState == ConnectionState.done) {
-              return HomeScreen();
+            if (snapshot.data == ConnectivityResult.none) {
+              return Scaffold(
+                  body: Center(
+                child: Text(
+                    "No Internet Connection! Check your connection and please try again"),
+              )); //HomeScreen();
+            } else {
+              return FutureBuilder(
+                  future: checkNet(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text("Somthing went wrong");
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.done) {
+                      return HomeScreen();
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  });
             }
-            print(snapshot.connectionState);
-
-            return CircularProgressIndicator();
           },
         ),
       );
     });
+  }
+
+  checkNet() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) ||
+        (connectivityResult == ConnectivityResult.wifi)) {
+      return connectivityResult;
+    } else if (connectivityResult == ConnectivityResult.none) {
+      return connectivityResult;
+    }
   }
 }

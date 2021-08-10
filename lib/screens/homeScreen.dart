@@ -6,7 +6,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipos/data/themeChanger.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/icons/flutter_menu_icons.dart';
-
+import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:ipos/screens/iponews.dart';
 import 'package:ipos/screens/listedIPOs.dart';
 import 'package:ipos/screens/liveIPOs.dart';
@@ -16,13 +17,20 @@ import 'package:ipos/screens/webopen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import '../getData.dart';
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+const _url =
+    'https://play.google.com/store/apps/details?id=com.kedhar.ipo_cart';
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel', // id
   'High Importance Notifications', // title
   'This channel is used for important notifications.', // description
   importance: Importance.max,
 );
+
+void _launchURL() async =>
+    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -61,20 +69,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     initPrefs();
     fb();
     _controller = TabController(length: 3, vsync: this);
-    //  _createAnchoredBanner();
+    // _createAnchoredBanner();
   }
 
   Future<void> _createAnchoredBanner() async {
-    // final AnchoredAdaptiveBannerAdSize? size =
-    //     await AdSize.getAnchoredAdaptiveBannerAdSize(
-    //   Orientation.portrait,
-    //   MediaQuery.of(context).size.width.truncate(),
-    // );
     final AdSize adSize = AdSize(height: 50, width: 300);
-    // if (size == null) {
-    //   print('Unable to get height of anchored banner.');
-    //   return;
-    // }
 
     final BannerAd banner = BannerAd(
       size: adSize,
@@ -220,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         backgroundColor: background,
         elevation: 0,
         title: Text(
-          "IPO Market",
+          "IPO Cart",
           style: TextStyle(color: mainText),
         ),
         leading: IconButton(
@@ -232,18 +231,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               size: 10,
               color: mainText,
             )),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NewsToUpdate(),
-                  ),
-                );
-              },
-              icon: Icon(Icons.new_releases_sharp)),
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (context) => NewsToUpdate(),
+        //           ),
+        //         );
+        //       },
+        //       icon: Icon(Icons.new_releases_sharp)),
+        // ],
         bottom: TabBar(
           labelColor: accent,
           indicatorColor: accent,
@@ -296,10 +295,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     width: 50,
                   ),
                   SizedBox(width: 20),
-                  Text(
-                    "IPO Market",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
+                  RichText(
+                      text: TextSpan(
+                          text: "IPO",
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: accent,
+                          ),
+                          children: [
+                        TextSpan(
+                          text: " Cart",
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: subText,
+                          ),
+                        )
+                      ])),
                 ]),
               ),
             ),
@@ -335,17 +346,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   alert();
                 }),
             ListTile(
-              leading: Icon(Icons.feedback_rounded),
-              title: Text("Feedback"),
-            ),
+                leading: Icon(Icons.feedback_rounded),
+                title: Text("Feedback"),
+                onTap: () => _launchURL()),
             ListTile(
-              leading: Icon(Icons.star_rounded),
-              title: Text("Rate Us"),
-            ),
+                leading: Icon(Icons.star_rounded),
+                title: Text("Rate Us"),
+                onTap: () => _launchURL()),
             ListTile(
-              leading: Icon(Icons.ios_share_rounded),
-              title: Text("Share"),
-            ),
+                leading: Icon(Icons.ios_share_rounded),
+                title: Text("Share"),
+                onTap: () => Share.share(_url)),
           ],
         ),
       ),
