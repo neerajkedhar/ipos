@@ -294,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           text: " Cart",
                           style: TextStyle(
                             fontSize: 25,
-                            color: subText,
+                            color: mainText,
                           ),
                         )
                       ])),
