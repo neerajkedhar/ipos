@@ -4,6 +4,7 @@ import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/getData.dart';
 import 'package:ipos/widgets/liveipowidget.dart';
 import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ListedIPODetailsPage extends StatefulWidget {
   ListedIPODetailsPage(this.listt, {Key? key}) : super(key: key);
@@ -32,6 +33,10 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
     super.dispose();
   }
 
+  String _url = 'https://evault.kfintech.com/ipostatus/';
+  void _launchURL() async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw 'Could not launch $_url';
   late Color background;
   late Color foreground;
   late Color accent;
@@ -1030,7 +1035,7 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
               ),
             )),
         floatingActionButton: GestureDetector(
-            onTap: () {},
+            onTap: () => _launchURL(),
             child: Container(
               width: (MediaQuery.of(context).size.width) * 0.9,
               height: 50,

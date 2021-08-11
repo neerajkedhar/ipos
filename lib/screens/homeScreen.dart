@@ -231,18 +231,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               size: 10,
               color: mainText,
             )),
-        // actions: [
-        //   IconButton(
-        //       onPressed: () {
-        //         Navigator.push(
-        //           context,
-        //           MaterialPageRoute(
-        //             builder: (context) => NewsToUpdate(),
-        //           ),
-        //         );
-        //       },
-        //       icon: Icon(Icons.new_releases_sharp)),
-        // ],
         bottom: TabBar(
           labelColor: accent,
           indicatorColor: accent,
@@ -273,7 +261,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               child: AdWidget(ad: _anchoredBanner!),
             ),
           ),
-        //  Container(width: 300, height: 100, color: Colors.green),
       ]),
     );
   }
@@ -290,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 child: Row(children: [
                   SizedBox(height: 80),
                   Image.asset(
-                    "lib/assets/download.png",
+                    "lib/assets/ic_launcher.png",
                     height: 50,
                     width: 50,
                   ),
