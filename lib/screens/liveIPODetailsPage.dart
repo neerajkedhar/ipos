@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ipos/data/admobAds.dart';
+
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/getData.dart';
 import 'package:ipos/widgets/liveipowidget.dart';

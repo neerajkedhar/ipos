@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -6,19 +5,18 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipos/data/themeChanger.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/icons/flutter_menu_icons.dart';
+import 'package:ipos/screens/iponews.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:ipos/screens/iponews.dart';
+
 import 'package:ipos/screens/listedIPOs.dart';
 import 'package:ipos/screens/liveIPOs.dart';
 import 'package:ipos/screens/news.dart';
-import 'package:ipos/screens/newstoupdate.dart';
+
 import 'package:ipos/screens/webopen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import '../getData.dart';
-import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 const _url =
     'https://play.google.com/store/apps/details?id=com.kedhar.ipo_cart';
@@ -62,7 +60,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   BannerAd? banner;
   bool? isLoading;
 
-  bool _loadingAnchoredBanner = false;
   @override
   void initState() {
     super.initState();
@@ -247,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       body: Stack(children: [
         TabBarView(
           controller: _controller,
-          children: [LiveIPO(), ListedIPO(), News()],
+          children: [LiveIPO(), ListedIPO(), IPONews()],
         ),
         if (_anchoredBanner != null)
           Positioned(

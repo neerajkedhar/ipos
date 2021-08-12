@@ -3,7 +3,7 @@ import 'package:ipos/data/admobAds.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/getData.dart';
 import 'package:ipos/widgets/liveipowidget.dart';
-import 'package:share/share.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class ListedIPODetailsPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:ipos/data/themeChanger.dart';
+
 import 'package:ipos/data/uicolors.dart';
 
 import 'package:ipos/getData.dart';
@@ -21,7 +21,7 @@ class _LiveIPOState extends State<LiveIPO> {
   late Color subText;
   AppColors colors = AppColors();
   CategoryServices cats = new CategoryServices();
-  var firestoreDb = FirebaseFirestore.instance.collection("ipos").snapshots();
+  //var firestoreDb = FirebaseFirestore.instance.collection("ipos").snapshots();
   @override
   Widget build(BuildContext context) {
     background = Theme.of(context).brightness == Brightness.dark

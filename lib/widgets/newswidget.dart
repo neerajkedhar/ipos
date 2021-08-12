@@ -61,7 +61,7 @@ Widget newsWidgets(Color mainText, Color subText, Color foreground,
   //var description = iposNewsList[index]['description'];
   var urlToImage = iposNewsList[index]['urlToImage'];
   var url = iposNewsList[index]['url'];
-  var publishedAt = iposNewsList[index]['publishedAt'];
+
   return Padding(
     padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
     child: GestureDetector(
