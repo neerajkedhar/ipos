@@ -368,7 +368,7 @@ Widget listedipowidget(
                   // ),
                   SizedBox(height: 10),
                   Text(
-                    "IPO is subscribed ${listt[index]['subscription-details']['day3']['rii']} in Retail Market as of ${listt[index]['subscription-details']['day1']['date']}.",
+                    "IPO is subscribed ${listt[index]['subscription-details']['day3']['rii']} in Retail Market as of ${listt[index]['subscription-details']['day3']['date']}.",
                     style: TextStyle(fontSize: 12, color: subText),
                   ),
                 ],
