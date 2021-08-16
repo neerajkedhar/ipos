@@ -662,22 +662,9 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: Text("${widget.listt['promoters']}"),
+                      child: Text("${widget.listt['pomoters']}"),
                     )),
                 SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Promoters"),
-                ),
-                Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: foreground,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text("${widget.listt['promoters']}"),
-                    )),
                 SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
