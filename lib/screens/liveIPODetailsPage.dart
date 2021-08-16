@@ -364,7 +364,7 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      "${widget.listt['ipo-details']['retail-portion']}"),
+                                      "${widget.listt['ipo-details']['retail-portion']} %"),
                                   SizedBox(height: 5),
                                   Text("Retail portion",
                                       style: TextStyle(
@@ -376,7 +376,7 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      "${widget.listt['ipo-details']['market-lot']}"),
+                                      "${widget.listt['ipo-details']['market-lot']} Shares"),
                                   SizedBox(height: 5),
                                   Text("Market Lot",
                                       style: TextStyle(
@@ -553,7 +553,7 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("RoNW: "),
-                            Text("${widget.listt['valuation']['ronw']}")
+                            Text("${widget.listt['valuation']['ronw']} %")
                           ],
                         ),
                       ]),
@@ -622,7 +622,7 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Text("${widget.listt['promoters']}"),
+                        child: Text("${widget.listt['pomoters']}"),
                       )),
                   SizedBox(height: 20),
                   Padding(
@@ -721,7 +721,7 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
                   children: [
                     Text(
                         "31 Mar ${widget.listt['financials']['mar1']['year']}"),
-                    Text("₹${widget.listt['financials']['mar1']['assets']}")
+                    Text("₹${widget.listt['financials']['mar1']['asset']}")
                   ],
                 ),
                 SizedBox(height: 20),
@@ -730,7 +730,7 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
                   children: [
                     Text(
                         "31 Mar ${widget.listt['financials']['mar2']['year']}"),
-                    Text("₹${widget.listt['financials']['mar2']['assets']}")
+                    Text("₹${widget.listt['financials']['mar2']['asset']}")
                   ],
                 ),
                 SizedBox(height: 20),
@@ -739,7 +739,7 @@ class _LiveIPODetailsPageState extends State<LiveIPODetailsPage>
                   children: [
                     Text(
                         "31 Mar ${widget.listt['financials']['mar3']['year']}"),
-                    Text("₹${widget.listt['financials']['mar3']['assets']}")
+                    Text("₹${widget.listt['financials']['mar3']['asset']}")
                   ],
                 ),
               ]),

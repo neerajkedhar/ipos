@@ -271,7 +271,7 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                    "${widget.listt['ipo-details']['retail-portion']}"),
+                                    "${widget.listt['ipo-details']['retail-portion']} %"),
                                 SizedBox(height: 5),
                                 Text("Retail portion",
                                     style: TextStyle(
@@ -283,7 +283,7 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                    "${widget.listt['ipo-details']['market-lot']}"),
+                                    "${widget.listt['ipo-details']['market-lot']} Shares"),
                                 SizedBox(height: 5),
                                 Text("Market Lot",
                                     style: TextStyle(
@@ -443,7 +443,7 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
                                 Text(
                                     "31 Mar ${widget.listt['financials']['mar1']['year']}"),
                                 Text(
-                                    "₹${widget.listt['financials']['mar1']['assets']}")
+                                    "₹${widget.listt['financials']['mar1']['asset']}")
                               ],
                             ),
                             SizedBox(height: 20),
@@ -453,7 +453,7 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
                                 Text(
                                     "31 Mar ${widget.listt['financials']['mar2']['year']}"),
                                 Text(
-                                    "₹${widget.listt['financials']['mar2']['assets']}")
+                                    "₹${widget.listt['financials']['mar2']['asset']}")
                               ],
                             ),
                             SizedBox(height: 20),
@@ -463,7 +463,7 @@ class _UpcomingIPODetailsPageState extends State<UpcomingIPODetailsPage>
                                 Text(
                                     "31 Mar ${widget.listt['financials']['mar3']['year']}"),
                                 Text(
-                                    "₹${widget.listt['financials']['mar3']['assets']}")
+                                    "₹${widget.listt['financials']['mar3']['asset']}")
                               ],
                             ),
                           ]),
