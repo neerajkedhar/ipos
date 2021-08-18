@@ -6,7 +6,7 @@
    <application
         android:label="IPO Cart"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round">
+        android:roundIcon="@mipmap/IPO_ICON_ROUND">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
