@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Future<void> _createAnchoredBanner() async {
-    final AdSize adSize = AdSize(height: 50, width: 300);
+    final AdSize adSize = AdSize(height: 50, width: 330);
 
     final BannerAd banner = BannerAd(
       size: adSize,

@@ -62,4 +62,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.ads.mediation:facebook:6.5.1.0'
+    implementation 'com.google.ads.mediation:mopub:5.18.0.0'
 }
