@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     initPrefs();
     fb();
     _controller = TabController(length: 3, vsync: this);
-    // _createAnchoredBanner();
+    _createAnchoredBanner();
   }
 
   Future<void> _createAnchoredBanner() async {
@@ -75,7 +75,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     final BannerAd banner = BannerAd(
       size: adSize,
       request: AdRequest(),
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      adUnitId:
+          'ca-app-pub-3071933490034842/5207120991', //'ca-app-pub-3940256099942544/6300978111',
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
           print('$BannerAd loaded.');
@@ -128,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: background,
-            title: Text('Terms and Conditions'),
+            title: Text('Disclaimer'),
             content: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
@@ -284,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           text: "IPO",
                           style: TextStyle(
                             fontSize: 25,
-                            color: accent,
+                            fontWeight: FontWeight.bold,
                           ),
                           children: [
                         TextSpan(
@@ -292,6 +293,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           style: TextStyle(
                             fontSize: 25,
                             color: mainText,
+                            fontWeight: FontWeight.w300,
                           ),
                         )
                       ])),

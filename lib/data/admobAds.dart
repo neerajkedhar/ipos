@@ -6,7 +6,8 @@ class Ads {
   int _numInterstitialLoadAttempts = 0;
   createInterstitialAd() {
     InterstitialAd.load(
-        adUnitId: "ca-app-pub-3940256099942544/1033173712",
+        adUnitId:
+            'ca-app-pub-3071933490034842/6939360282', //"ca-app-pub-3940256099942544/1033173712",
         request: AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (InterstitialAd ad) {

@@ -7,20 +7,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-// const AndroidNotificationChannel channel = AndroidNotificationChannel(
-//   'high_importance_channel', // id
-//   'High Importance Notifications', // title
-//   'This channel is used for important notifications.', // description
-//   importance: Importance.max,
-// );
-
-// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-//     FlutterLocalNotificationsPlugin();
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-//   print("a msg from firebasecjust showed up: ${message.messageId}");
-// }
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize().then((InitializationStatus status) {
@@ -29,15 +15,13 @@ Future<void> main() async {
       RequestConfiguration(
           tagForChildDirectedTreatment:
               TagForChildDirectedTreatment.unspecified,
-          testDeviceIds: <
-              String>[]), //when you run first time you will get your test id in logs then update it here <String>["test id"]
+          testDeviceIds: <String>[]),
     );
   });
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -115,8 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     flutterLocalNotificationsPlugin.show(
         0,
-        "Testing $_counter",
-        "How you doin ?",
+        "Alert",
+        "Updated GMP Details",
         NotificationDetails(
             android: AndroidNotificationDetails(
                 channel.id, channel.name, channel.description,
@@ -162,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ConnectionState.done) {
                       return HomeScreen();
                     } else {
-                      return CircularProgressIndicator();
+                      return Scaffold(body: CircularProgressIndicator());
                     }
                   });
             }
