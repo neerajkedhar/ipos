@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipos/data/admobAds.dart';
 import 'package:ipos/data/uicolors.dart';
 import 'package:ipos/getData.dart';
@@ -17,6 +18,7 @@ class ListedIPODetailsPage extends StatefulWidget {
 class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
     with TickerProviderStateMixin {
   late TabController _controller1;
+  BannerAd? _anchoredBanner;
   Ads ads = new Ads();
   late TabController _controller;
   @override
@@ -27,9 +29,36 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
     _controller = TabController(length: 3, vsync: this);
   }
 
+  Future<void> _createAnchoredBanner() async {
+    final AdSize adSize = AdSize(height: 60, width: 350);
+
+    final BannerAd banner = BannerAd(
+      size: adSize,
+      request: AdRequest(),
+      adUnitId:
+          'ca-app-pub-3071933490034842/5207120991', //'ca-app-pub-3940256099942544/6300978111',
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$BannerAd loaded.');
+          setState(() {
+            _anchoredBanner = ad as BannerAd?;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$BannerAd failedToLoad: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$BannerAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$BannerAd onAdClosed.'),
+      ),
+    );
+    return banner.load();
+  }
+
   @override
   void dispose() {
     show();
+    _anchoredBanner?.dispose();
     super.dispose();
   }
 
@@ -212,6 +241,14 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
                       ),
                     ),
                   ),
+                  SizedBox(height: 20),
+                  if (_anchoredBanner != null)
+                    Container(
+                      color: background,
+                      width: _anchoredBanner!.size.width.toDouble(),
+                      height: _anchoredBanner!.size.height.toDouble(),
+                      child: AdWidget(ad: _anchoredBanner!),
+                    ),
                   SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -814,6 +851,14 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
                                 ),
                               ]))),
                   SizedBox(height: 20),
+                  if (_anchoredBanner != null)
+                    Container(
+                      color: background,
+                      width: _anchoredBanner!.size.width.toDouble(),
+                      height: _anchoredBanner!.size.height.toDouble(),
+                      child: AdWidget(ad: _anchoredBanner!),
+                    ),
+                  SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text("Issue-Objective"),
@@ -855,7 +900,7 @@ class _ListedIPODetailsPageState extends State<ListedIPODetailsPage>
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
-                            "Any financial information or ideas published anywhere within this application, should not be considered as an advice to buy or sell securities or invest in IPOs. All matter published here is purely for education and information purpose only. All the infomation published in this application is gathered from the online and other news publications, so the information here may not be accurate and under no circumstances you should use this information to make investment decisions. \n \n We are not SEBI registered analyst. App users must consult a qualified financial advisor prior to making actual investment or financial decisions, \n\n YOUR USE OF THE APP AND YOUR RELIANCE ON ANY INFORMATION ON THE APP IS SOLELY AT YOUR OWN RISK. \n\nyou agree with the Terms and Conditions to use this Application."),
+                            "No financial information whatsoever published anywhere, within this application, should be considered as advice to buy or sell securities or invest in IPOs, or as a guide to doing so in any way whatsoever. All matter published here is purely for educational and information purposes only and under no circumstances should be used for making investment decisions. We are not SEBI Registered analysts. Readers must consult a qualified financial advisor prior to making any actual investment decisions, based on information published on this application. The information in the App is based on information available as of date coupled with market perceptions. \n\n YOUR USE OF THE APP AND YOUR RELIANCE ON ANY INFORMATION ON THE APP IS SOLELY AT YOUR OWN RISK. \n\nyou agree with the Terms and Conditions to use this Application."),
                       )),
                   SizedBox(height: 60),
                 ],
